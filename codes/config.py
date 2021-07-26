@@ -42,6 +42,8 @@ if os.path.exists(os.path.join(application_path,'config.txt')):
     day = config['counts_cur'].getint('day')
     today = datetime.today().day
     optionalVar = config['optional']
+    dashboardVar = config['dashboard']
+    dashboard_url, dashboard_port = dashboardVar.get('url'),dashboardVar.getint('port')
     if today == day:
         initGrpCnt = config['counts_cur'].getint('groups')
         initTtlCnt = config['counts_cur'].getint('count')

@@ -1,5 +1,5 @@
 [data]
-input_video = rtsp://admin:sang%%40123@49.206.18.107:554/Streaming/channels/101
+input_video = D:/work/frlnce/HumanTracking/wetransfer-4c99db/00000000447004401.mp4
 shop_num = 1
 shop_name = Test
 
@@ -7,15 +7,19 @@ shop_name = Test
 confidence = 60
 show_video = True
 freq = 1
-model = ssd
+direction = Top
+
+[dashboard]
+url = 128.199.76.117
+port = 1883
 
 [counts_cur]
-day = 24
+day = 26
 groups = 0
-count = 3
-individuals = 3
+count = 8
+individuals = 8
 
 [boundry]
-re_draw = True
-pts = 446,608,1599,471
+re_draw = False
+pts = 332,193,1421,796
 

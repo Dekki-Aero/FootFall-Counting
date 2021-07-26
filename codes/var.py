@@ -17,7 +17,7 @@ args = {
 
 logger.info("[INFO] loading model...")
 
-model = optionalVar.get('model')
+model = 'ssd' #optionalVar.get('model')
 if model=='frcnn':
     net = cv2.dnn.readNetFromTensorflow(
         os.path.join(application_path,'codes/libs/model_data/frcnnGraph.pb'),

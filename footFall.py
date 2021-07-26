@@ -9,12 +9,16 @@ from codes.pushToServer import Server
 from datetime import datetime
 
 
-def getLoc(X,Y,dst=None):
+def getLoc(X,Y,dst=None,direction='top'):
     adj = 30
     if not dst: tmp = (Bx - Ax) * (Y - Ay) - (By - Ay) * (X - Ax)
     else: tmp = (Bx - Ax) * (Y - (Ay-adj)) - ((By-adj) - (Ay-adj)) * (X - Ax)
-    if tmp<0 : return 'outside'
-    else : return 'inside'
+    if tmp<0:
+        if direction=='top': return 'outside'
+        else: return 'inside'
+    else : 
+        if direction=='top': return 'inside'
+        else: return 'outside'
 
 def filterBxsByNms(rects,confs,model):
     if model=='frcnn':
@@ -43,7 +47,9 @@ def getDetections(net,frame,model):
         return detections
     else:
         detections = net.detect(frame, confThreshold = 0.5)
-        return detections
+        if len(detections[2]):  detections[2][:,2:]+=detections[2][:,:2]
+        # else: boxes = detections[2]
+        return detections[0],detections[1],detections[2]
 
 def getRectsConfs(detections):
     if model=='frcnn':
@@ -52,15 +58,17 @@ def getRectsConfs(detections):
             box = detections[0, 0, i, 3:7] * np.array([W, H, W, H])
             if detections[0, 0, i, 2] > args["confidence"] \
                     and detections[0, 0, i, 1] == 0:
-                ctpt = (box[2] + box[0]) // 2, (box[3] + box[1]) // 2
                 rects.append([int(box[0]), int(box[1]), int(box[2]), int(box[3])])
                 confs.append(float(detections[0, 0, i, 2]))
         return rects,confs
     else:
         classes, confidences, boxes = detections
-        classes, confidences = classes.flatten(),confidences.flatten()
-        indcs = np.where(classes==1)
-        return boxes[indcs],confidences[indcs]
+        if len(classes):
+            classes, confidences = classes.flatten(),confidences.flatten()
+            indcs = np.where(classes==1)
+            return boxes[indcs],confidences[indcs]
+        else:
+            return [],[]
 
 if __name__ == "__main__":
     showImg = optionalVar.getboolean('show_video')
@@ -73,6 +81,8 @@ if __name__ == "__main__":
     (Ax,Ay),(Bx,By) = strt,fnl
 
     vdoStatus,frame = vs.read()
+    for i in range(190):
+        vdoStatus,frame = vs.read()
     # frame = image_resize(frame, width=args['width'])
 
     lst,cnt = -1,0
@@ -81,7 +91,7 @@ if __name__ == "__main__":
     grp = 1
     today = datetime.today().day
     displayTime = False
-
+    direction = optionalVar.get('direction').lower()
     while True:
         if displayTime: st2 = time.time()
         vdoStatus,frame = vs.read()
@@ -99,7 +109,7 @@ if __name__ == "__main__":
                 objects = ct.update(rectsf)
                 for (objectID, (centroid,box)) in objects.items():
                     objectID += 1
-                    loc = getLoc(centroid[0],centroid[1])
+                    loc = getLoc(centroid[0],centroid[1],direction = direction)
                     if objectID not in locDict: locDict[objectID] = loc
                     elif locDict[objectID] == 'outside' and loc == 'inside':
                         features = encoder(frame, [box])
@@ -126,7 +136,8 @@ if __name__ == "__main__":
                         cv2.putText(frame, text, (centroid[0] - 10, centroid[1] - 10),\
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                         cv2.circle(frame, (centroid[0], centroid[1]), 4, (255, 0, 0), -1)
-                        cv2.rectangle(frame, box, color=(0, 255, 0))
+                        # cv2.rectangle(frame, box, color=(0, 255, 0))
+                        cv2.rectangle(frame, (box[0],box[1]),(box[2],box[3]), color=(0, 255, 0))
         else:
             logger.warning("Unable to get video stream")
             vs = cv2.VideoCapture(INPUT_VIDEO, cv2.CAP_FFMPEG)
@@ -162,4 +173,7 @@ if __name__ == "__main__":
             lst = cnt
             updateConfigCounts(groups = grpCnt+initGrpCnt,individuals = indCnt+initIndvCnt,count = cnt+initTtlCnt,day = today)
         if displayTime: logger.info('Time for detection {}, Remaining {}'.format(dtctTm,time.time()-st2))
+        # print('Time for detection {}, Remaining {}'.format(dtctTm,time.time()-st2))
     if showImg:cv2.destroyAllWindows()
+
+    #rtsp://admin:sang%%40123@49.206.18.107:554/Streaming/channels/101

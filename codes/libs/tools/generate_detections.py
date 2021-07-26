@@ -29,7 +29,7 @@ def extract_image_patch(image, bbox, patch_shape):
     image : ndarray
         The full image.
     bbox : array_like
-        The bounding box in format (x, y, width, height).
+        The bounding box in format (xmin, ymin, xmax, ymax).
     patch_shape : Optional[array_like]
         This parameter can be used to enforce a desired patch shape
         (height, width). First, the `bbox` is adapted to the aspect ratio
@@ -68,7 +68,6 @@ def extract_image_patch(image, bbox, patch_shape):
 
 
 class ImageEncoder(object):
-
     def __init__(self, checkpoint_filename, input_name="images",
                  output_name="features"):
         self.session = tf.Session()
