@@ -1,0 +1,8 @@
+{
+    "python.pythonPath": "C:\\Users\\akhil\\anaconda3\\envs\\HumanTracking\\python.exe",
+    "[python]": {
+    
+        "editor.wordBasedSuggestions": false
+    },
+    "python.formatting.provider": "yapf"
+}

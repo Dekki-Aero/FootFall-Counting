@@ -1,0 +1,6 @@
+2021-03-15 21:10:14,861 Application path : D:\work\frlnce\HumanTracking\Deploy\codes
+2021-03-15 21:10:14,861 File config.txt doesn't exist
+2021-03-15 21:10:16,593 Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+2021-03-15 21:10:18,426 From C:\Users\akhil\anaconda3\envs\Deploy\lib\site-packages\tensorflow\python\compat\v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term

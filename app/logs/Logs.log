@@ -1,0 +1,12 @@
+2021-03-15 21:32:19,022 Application path : D:\work\frlnce\HumanTracking\Deploy\dist
+2021-03-15 21:32:30,615 Falling back to TensorFlow client; we recommended you install the Cloud TPU client directly with pip install cloud-tpu-client.
+2021-03-15 21:32:33,652 From tensorflow\python\compat\v2_compat.py:96: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+2021-03-15 21:32:34,298 [INFO] loading model...
+2021-03-15 21:32:35,302 [INFO] loaded model...
+2021-03-15 21:32:39,636 Counts updated in server
+2021-03-15 21:32:54,610 Counts updated in server
+2021-03-15 21:33:09,661 Processed 500 frames, time : 2021-03-15 21:33:09.661245
+2021-03-15 21:33:11,480 Counts updated in server
+2021-03-15 21:33:42,928 Processed 1000 frames, time : 2021-03-15 21:33:42.928903

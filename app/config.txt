@@ -1,0 +1,17 @@
+[data]
+input_video = rtsp://admin:sang%%40123@49.206.26.76:554/Streaming/channels/501
+shop_num = 1
+shop_name = Test
+
+[optional]
+show_video = True
+
+[counts_cur]
+day = 15
+groups = 16
+count = 212
+individuals = 178
+
+[boundry]
+pts = 249,156,798,156
+

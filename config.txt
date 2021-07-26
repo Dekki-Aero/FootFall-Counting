@@ -1,0 +1,21 @@
+[data]
+input_video = rtsp://admin:sang%%40123@49.206.18.107:554/Streaming/channels/101
+shop_num = 1
+shop_name = Test
+
+[optional]
+confidence = 60
+show_video = True
+freq = 1
+model = ssd
+
+[counts_cur]
+day = 24
+groups = 0
+count = 3
+individuals = 3
+
+[boundry]
+re_draw = True
+pts = 446,608,1599,471
+
